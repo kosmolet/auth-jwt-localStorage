@@ -15,14 +15,12 @@ if (["development", "production"].includes(process.env.NODE_ENV)) {
 app.use(express.json({ limit: "50mb" }));
 app.use(cors());
 
- 
-
 app.get("/", (req, res) => {
   res.json({
     message: "API is working",
   });
 });
 
- 
+app.use("/api/v1/auth", require("./routes/auth"));
 
 module.exports = app;
