@@ -16,7 +16,7 @@ content-type: application/json
 
 {
     "username": "Trunt",
-    "email": "trunts@gmail.com",
+    "email": "trunts5@gmail.com",
     "password": "veryStrongPassword2"
 }
 
@@ -26,7 +26,6 @@ POST {{BASE_URL}}/auth/login
 content-type: application/json
 
 {
-    "username": "Teresa",
     "email": "teresa@gmail.com",
     "password": "veryStrongPassword1"
 }
@@ -36,7 +35,6 @@ POST {{BASE_URL}}/auth/forgotpassword
 content-type: application/json
 
 {
-    "username": "Teresa",
     "email": "teresa@gmail.com",
     "password": "veryStrongPassword1"
 }
@@ -46,7 +44,6 @@ POST {{BASE_URL}}/auth/passwordreset
 content-type: application/json
 
 {
-    "username": "Teresa",
     "email": "teresa@gmail.com",
     "password": "veryStrongPassword1"
 }
