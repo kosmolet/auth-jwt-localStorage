@@ -22,5 +22,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth", require("./routes/auth"));
+app.use("/api/v1/private", require("./routes/private"));
 
 module.exports = app;
