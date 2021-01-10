@@ -1,12 +1,20 @@
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ResetPassword from "./pages/ResetPassword";
+import ForgotPassword from "./pages/ForgotPassword";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          one two five
-        </p>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/forgotpassword" component={ForgotPassword} />
+          <Route exact path="/resetpassword" component={ResetPassword} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
