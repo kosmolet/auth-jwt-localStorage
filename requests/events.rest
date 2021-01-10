@@ -1,0 +1,17 @@
+@TOKEN=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZmFiNzlhNjMxZWVkNTA2MGQ0YTkzOSIsImlhdCI6MTYxMDI2NjYxMSwiZXhwIjoxNjEwMjcwMjExfQ.suL3GScYloAUd3oZzlaiSSZATimrmySD3FvxyEjRjhA
+@BASE_URL=http://localhost:{{$dotenv PORT}}/api/v1
+ 
+
+##########  AUTHORIZED  ############
+
+### GET all
+GET {{BASE_URL}}/private
+Authorization: {{TOKEN}}
+
+ 
+##########  NOT AUTHORIZED  ############
+
+#### Get ALL
+GET {{BASE_URL}}/private
+ 
+ 

@@ -17,6 +17,7 @@ const sendVerifyEmail = async (data) => {
         urlReset,
       },
     };
+
     await sgMail.send(msg);
     logger.debug(`Email was sent to ${msg.to}`);
   } catch (err) {

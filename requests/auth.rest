@@ -1,77 +1,38 @@
-@BASE_URL=http://localhost:{{$dotenv PORT}}/api/v1
+@BASE_URL=http://localhost:{{$dotenv PORT}}/api/v1/auth
 @USER_ID=12345
+@resetToken = 70b15890d9641b508772e8aebf0a44349c03abcb
 ### POST register:
-POST {{BASE_URL}}/auth/register
+POST {{BASE_URL}}/register
 content-type: application/json
 
 {
-    "username": "Teresa",
-    "email": "teresa@gmail.com",
+    "username": "Cheburashka",
+    "email": "kosmolet.git@gmail.com",
     "password": "veryStrongPassword1"
 }
 
-### POST register:
-POST {{BASE_URL}}/auth/register
-content-type: application/json
-
-{
-    "username": "Trunt",
-    "email": "trunts5@gmail.com",
-    "password": "veryStrongPassword2"
-}
-
-
 ### POST login:
-POST {{BASE_URL}}/auth/login
+POST {{BASE_URL}}/login
 content-type: application/json
 
 {
-    "email": "teresa@gmail.com",
+    "email": "kosmolet.git@gmail.com",
     "password": "veryStrongPassword1"
 }
 
 ### POST forgot:
-POST {{BASE_URL}}/auth/forgotpassword
+POST {{BASE_URL}}/forgotpassword
 content-type: application/json
 
 {
-    "email": "teresa@gmail.com",
-    "password": "veryStrongPassword1"
+    "email": "kosmolet.git@gmail.com"
 }
 
 ### POST reset:
-POST {{BASE_URL}}/auth/passwordreset
+POST {{BASE_URL}}/resetpassword/{{resetToken}}
 content-type: application/json
 
 {
-    "email": "teresa@gmail.com",
-    "password": "veryStrongPassword1"
+    "password": "veryStrongPassword2"
 }
-
-
-#### Get ALL:
-GET {{BASE_URL}}/auth/users
-
-### GET by :id: 
-GET {{BASE_URL}}/auth/users/{{USER_ID}}
-
-### PUT by :id:
-PUT {{BASE_URL}}/auth/users/{{USER_ID}}
-content-type: application/json
-
-{
-    "username": "Teresa",
-    "email": "teresa@gmail.com",
-    "password": "veryStrongPassword1"
-}
-
-### PATCH by :id:
-PATCH {{BASE_URL}}/auth/users/{{USER_ID}}
-content-type: application/json
-
-{
-    "username": "Cheburashka"
-}
-
-### 5. DELETE by :id  
-DELETE {{BASE_URL}}/auth/users/{{USER_ID}}
+ 

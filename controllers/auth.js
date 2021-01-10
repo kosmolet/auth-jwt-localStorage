@@ -92,7 +92,7 @@ exports.forgotPassword = async (req, res) => {
     const data = {
       to: user.email,
       name: user.username,
-      resetPath: `/resetpassword/${resetPasswordToken}`,
+      resetPath: `/auth/resetpassword/${resetPasswordToken}`,
     };
     await sendVerifyEmail(data);
     res.status(200).json({ success: true, data: `Email was sent to ${email}` });
@@ -106,5 +106,36 @@ exports.forgotPassword = async (req, res) => {
 };
 
 exports.resetPassword = async (req, res) => {
-  res.send("reset");
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.resetToken)
+    .digest("hex");
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+    console.log(user, "user");
+    if (!user) {
+      return res.status(400).json({ error: "Invalid Token" });
+    }
+
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    const result = await user.save();
+
+    res.status(201).json({
+      success: true,
+      data: "Password has been updated ",
+      token: user.getSignedJwtToken(),
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: err.message,
+    });
+  }
 };
