@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const sendVerifyEmail = require("../utils/sendMail");
 
 exports.register = async (req, res) => {
   const { username, email, password } = req.body;
@@ -74,7 +75,34 @@ exports.login = async (req, res) => {
 };
 
 exports.forgotPassword = async (req, res) => {
-  res.send("forgot");
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email could not be sent" });
+    }
+
+    const resetPasswordToken = user.getResetPasswordToken();
+    await user.save();
+
+    const data = {
+      to: user.email,
+      name: user.username,
+      resetPath: `/resetpassword/${resetPasswordToken}`,
+    };
+    await sendVerifyEmail(data);
+    res.status(200).json({ success: true, data: `Email was sent to ${email}` });
+  } catch (err) {
+    const user = await User.findOne({ email });
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save();
+    return res.status(500).json({ success: false, message: err.message });
+  }
 };
 
 exports.resetPassword = async (req, res) => {

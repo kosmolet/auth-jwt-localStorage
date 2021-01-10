@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/kosmolet/auth#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.4.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-pino-logger": "^5.0.0",
