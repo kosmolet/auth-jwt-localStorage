@@ -21,6 +21,7 @@ exports.register = async (req, res) => {
     });
 
     const newUser = await user.save();
+
     res.status(201).json({
       success: true,
       user: newUser,
@@ -46,7 +47,7 @@ exports.login = async (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .json({ success: false, error: "Email! or password are invalid" });
+        .json({ success: false, error: "Email or password are invalid" });
     }
 
     //const isPasswordMatch = await bcrypt.compare(password, user.password);
@@ -54,7 +55,7 @@ exports.login = async (req, res) => {
     if (!isPasswordMatch) {
       return res
         .status(400)
-        .json({ success: false, erorr: "Email or password! are invalid" });
+        .json({ success: false, erorr: "Email or password are invalid" });
     }
 
     // const payload = {
