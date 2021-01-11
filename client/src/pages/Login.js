@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import { authContext } from "../store/AuthContext";
 
 const Login = () => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { setAuthData } = useContext(authContext);
 
   useEffect(() => {
     if (localStorage.getItem("authToken")) {
-      history.push("/");
+      history.replace("/");
     }
   }, [history]);
 
@@ -21,8 +23,18 @@ const Login = () => {
       const { data } = await axios.post("/auth/login", { email, password });
 
       localStorage.setItem("authToken", data.token);
-
-      history.push("/");
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          name: data.user.username,
+          email: data.user.email,
+        })
+      );
+      setAuthData({
+        name: data.user.username,
+        email: data.user.email,
+      });
+      history.replace("/");
     } catch (error) {
       setError(error.response.data.error);
     }

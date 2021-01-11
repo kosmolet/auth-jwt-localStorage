@@ -50,7 +50,6 @@ exports.login = async (req, res) => {
         .json({ success: false, error: "Email or password are invalid" });
     }
 
-    //const isPasswordMatch = await bcrypt.compare(password, user.password);
     const isPasswordMatch = await user.matchPassword(password);
     if (!isPasswordMatch) {
       return res
@@ -58,18 +57,9 @@ exports.login = async (req, res) => {
         .json({ success: false, error: "Email or password are invalid" });
     }
 
-    // const payload = {
-    //   user: {
-    //     userId: user._id,
-    //   },
-    // };
-
-    // const token = jwt.sign(payload, JWT_SECRET, {
-    //   expiresIn: "1hr",
-    // });
     const token = user.getSignedJwtToken();
 
-    res.status(200).json({ success: true, token });
+    res.status(200).json({ success: true, token, user });
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });
   }
@@ -122,21 +112,19 @@ exports.resetPassword = async (req, res) => {
       resetPasswordToken,
       resetPasswordExpire: { $gt: Date.now() },
     });
-    console.log(user, "user");
+
     if (!user) {
-      return res
-        .status(400)
-        .json({
-          error:
-            "Your reset passport session is expired or invalid. Try to login or reset password again",
-        });
+      return res.status(400).json({
+        error:
+          "Your reset passport session is expired or invalid. Try to login or reset password again",
+      });
     }
 
     user.password = req.body.password;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
-    const result = await user.save();
+    await user.save();
 
     res.status(201).json({
       success: true,

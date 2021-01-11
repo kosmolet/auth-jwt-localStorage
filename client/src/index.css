@@ -134,3 +134,28 @@ a {
   text-align: right;
   font-weight: 600;
 }
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  color: white;
+  padding: 0 50px 0 10px;
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+.nav-links:hover a {
+  color: #27b0ff;
+}
+
+.home-page-wr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.home-page-hello {
+  align-self: flex-start;
+  justify-self: start;
+}
