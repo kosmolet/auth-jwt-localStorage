@@ -12,6 +12,7 @@ const ResetPassword = () => {
   const resetPasswordHandler = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
     if (password !== confirmPassword) {
       setPassword("");
       setConfirmPassword("");

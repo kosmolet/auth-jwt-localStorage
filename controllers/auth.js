@@ -9,9 +9,9 @@ exports.register = async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (user) {
-      return res
-        .status(400)
-        .json({ error: "User with this email already exists" });
+      return res.status(400).json({
+        error: "User with this email already exists. Please login instead",
+      });
     }
 
     user = new User({
@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
     if (!isPasswordMatch) {
       return res
         .status(400)
-        .json({ success: false, erorr: "Email or password are invalid" });
+        .json({ success: false, error: "Email or password are invalid" });
     }
 
     // const payload = {
@@ -71,7 +71,7 @@ exports.login = async (req, res) => {
 
     res.status(200).json({ success: true, token });
   } catch (err) {
-    return res.status(500).json({ success: false, message: err.message });
+    return res.status(500).json({ success: false, error: err.message });
   }
 };
 
@@ -82,9 +82,11 @@ exports.forgotPassword = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Email could not be sent" });
+      return res.status(400).json({
+        success: false,
+        error:
+          "Email could not be sent. Please check that email address is correct",
+      });
     }
 
     const resetPasswordToken = user.getResetPasswordToken();
@@ -93,16 +95,19 @@ exports.forgotPassword = async (req, res) => {
     const data = {
       to: user.email,
       name: user.username,
-      resetPath: `/auth/resetpassword/${resetPasswordToken}`,
+      resetPath: `/resetpassword/${resetPasswordToken}`,
     };
     await sendVerifyEmail(data);
-    res.status(200).json({ success: true, data: `Email was sent to ${email}` });
+    res.status(200).json({
+      success: true,
+      data: `Email was sent to ${email}. Please check your inbox`,
+    });
   } catch (err) {
     const user = await User.findOne({ email });
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
     await user.save();
-    return res.status(500).json({ success: false, message: err.message });
+    return res.status(500).json({ success: false, error: err.message });
   }
 };
 
@@ -119,7 +124,12 @@ exports.resetPassword = async (req, res) => {
     });
     console.log(user, "user");
     if (!user) {
-      return res.status(400).json({ error: "Invalid Token" });
+      return res
+        .status(400)
+        .json({
+          error:
+            "Your reset passport session is expired or invalid. Try to login or reset password again",
+        });
     }
 
     user.password = req.body.password;

@@ -10,6 +10,7 @@ const ForgotPassword = () => {
   const forgotPasswordHandler = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
     try {
       const { data } = await axios.post("/auth/forgotpassword", { email });
 
