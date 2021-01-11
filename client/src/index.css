@@ -50,8 +50,9 @@ body {
   font-size: 0.8rem;
 }
 .success-message {
-  color: green;
-  font-size: 0.9rem;
+  color: #0d51c5;
+  font-weight: 700;
+  font-size: 0.8rem;
 }
 
 .btn {

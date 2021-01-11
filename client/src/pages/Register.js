@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import "./Register.css";
 
 const Register = () => {
   const history = useHistory();
@@ -19,13 +18,10 @@ const Register = () => {
 
   const registrationHandler = async (e) => {
     e.preventDefault();
-
+    setError("");
     if (password !== confirmpassword) {
       setPassword("");
       setConfirmPassword("");
-      setTimeout(() => {
-        setError("");
-      }, 5000);
       return setError("Passwords do not match");
     }
 
@@ -39,9 +35,6 @@ const Register = () => {
       history.push("/login");
     } catch (error) {
       setError(error.response.data.error);
-      setTimeout(() => {
-        setError("");
-      }, 5000);
     }
   };
 
@@ -51,7 +44,7 @@ const Register = () => {
         <h3 className="register-form-title">Sign Up</h3>
 
         <div className="input-label-group">
-          <label htmlFor="name">Username:</label>
+          <label htmlFor="name">Username</label>
           <input
             type="text"
             required
@@ -62,7 +55,7 @@ const Register = () => {
           />
         </div>
         <div className="input-label-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             required
@@ -73,7 +66,7 @@ const Register = () => {
           />
         </div>
         <div className="input-label-group">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             required
@@ -85,7 +78,7 @@ const Register = () => {
           />
         </div>
         <div className="input-label-group">
-          <label htmlFor="confirmpassword">Confirm Password:</label>
+          <label htmlFor="confirmpassword">Confirm Password</label>
           <input
             type="password"
             required

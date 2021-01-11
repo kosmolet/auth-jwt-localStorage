@@ -11,7 +11,11 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/forgotpassword" component={ForgotPassword} />
-          <Route exact path="/resetpassword" component={ResetPassword} />
+          <Route
+            exact
+            path="/resetpassword/:resetToken"
+            component={ResetPassword}
+          />
         </Switch>
       </div>
     </Router>

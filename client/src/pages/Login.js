@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import "./Login.css";
 
 const Login = () => {
   const history = useHistory();
@@ -17,7 +16,7 @@ const Login = () => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
-
+    setError("");
     try {
       const { data } = await axios.post("/auth/login", { email, password });
 
@@ -26,9 +25,6 @@ const Login = () => {
       history.push("/");
     } catch (error) {
       setError(error.response.data.error);
-      setTimeout(() => {
-        setError("");
-      }, 8000);
     }
   };
 
@@ -38,7 +34,7 @@ const Login = () => {
         <h3 className="login-form-title">Sign In</h3>
 
         <div className="input-label-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             required
@@ -50,12 +46,8 @@ const Login = () => {
           />
         </div>
         <div className="input-label-group">
-          <label htmlFor="password">
-            Password:{" "}
-            <Link to="/forgotpassword" className="login-form-forgotpassword">
-              Forgot Password?
-            </Link>
-          </label>
+          <label htmlFor="password">Password{"   "}</label>
+
           <input
             type="password"
             required
@@ -67,6 +59,9 @@ const Login = () => {
             tabIndex={2}
           />
         </div>
+        <p className="login-form-forgotpassword">
+          <Link to="/forgotpassword">Forgot Password?</Link>
+        </p>
         {error && <span className="error-message">{error}</span>}
         <button type="submit" className="btn">
           Login
