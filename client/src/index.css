@@ -60,6 +60,8 @@ body {
   padding: 15px;
   cursor: pointer;
   width: 100%;
+  max-width: 400px;
+  text-align: center;
   font-size: 1rem;
   font-weight: 600;
   border: none;
@@ -75,14 +77,17 @@ body {
 .register-page-wr,
 .login-page-wr,
 .forgotpassword-page-wr,
-.resetpassword-page-wr {
+.resetpassword-page-wr,
+.not-found-page-wr {
   max-width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
+.not-found-page-wr {
+  flex-direction: column;
+}
 .register-form,
 .login-form,
 .forgotpassword-form,

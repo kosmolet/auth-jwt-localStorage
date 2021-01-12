@@ -16,11 +16,13 @@ const Navbar = () => {
     <nav>
       <div className="nav-wrapper">
         <span className="logo">Login Paradise</span>
-        <div className="nav-links">
-          <Link to="/" onClick={logoutHandler}>
-            Log out
-          </Link>
-        </div>
+        {auth.data ? (
+          <div className="nav-links">
+            <Link to="/" onClick={logoutHandler}>
+              Log out
+            </Link>
+          </div>
+        ) : null}
       </div>
     </nav>
   );

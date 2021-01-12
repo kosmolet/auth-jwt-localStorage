@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+
 const { JWT_SECRET } = process.env;
 
 exports.isAuthenticated = async (req, res, next) => {
@@ -17,7 +17,7 @@ exports.isAuthenticated = async (req, res, next) => {
 
   try {
     const decoded = await jwt.verify(bearerToken, JWT_SECRET);
-    req.userId = decoded._id;
+    req.userId = decoded.id;
 
     next();
   } catch (err) {

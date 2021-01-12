@@ -23,17 +23,13 @@ const Login = () => {
       const { data } = await axios.post("/auth/login", { email, password });
 
       localStorage.setItem("authToken", data.token);
-      localStorage.setItem(
-        "userData",
-        JSON.stringify({
-          name: data.user.username,
-          email: data.user.email,
-        })
-      );
+
       setAuthData({
-        name: data.user.username,
+        id: data.user._id,
+        username: data.user.username,
         email: data.user.email,
       });
+
       history.replace("/");
     } catch (error) {
       setError(error.response.data.error);

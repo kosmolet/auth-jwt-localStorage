@@ -3,10 +3,11 @@ import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 import AuthProvider from "./store/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./pages/Home";
+import NotFound from "./components/NotFound";
 function App() {
   return (
     <AuthProvider>
@@ -14,6 +15,7 @@ function App() {
         <div className="App">
           {/* <Navbar /> */}
           <Switch>
+            <PrivateRoute exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
@@ -22,7 +24,7 @@ function App() {
               path="/resetpassword/:resetToken"
               component={ResetPassword}
             />
-            <PrivateRoute path="/" component={Home} />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </Router>
