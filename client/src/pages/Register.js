@@ -33,8 +33,8 @@ const Register = () => {
       });
 
       history.push("/login");
-    } catch (error) {
-      setError(error.response.data.error);
+    } catch (err) {
+      setError(err.response.data.error);
     }
   };
 
