@@ -31,8 +31,8 @@ const Login = () => {
       });
 
       history.replace("/");
-    } catch (error) {
-      setError(error.response.data.error);
+    } catch (err) {
+      setError(err.response.data.error);
     }
   };
 

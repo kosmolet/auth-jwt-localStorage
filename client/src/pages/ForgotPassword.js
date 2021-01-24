@@ -15,8 +15,8 @@ const ForgotPassword = () => {
       const { data } = await axios.post("/auth/forgotpassword", { email });
 
       setSuccess(data.data);
-    } catch (error) {
-      setError(error.response.data.error);
+    } catch (err) {
+      setError(err.response.data.error);
     }
   };
 

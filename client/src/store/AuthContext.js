@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
               email: data.user.email,
             },
           });
-        } catch (error) {
+        } catch (err) {
           localStorage.removeItem("authToken");
           setError(
             "You are not authorized or your session is expired, please login again"
